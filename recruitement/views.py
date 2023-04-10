@@ -13,6 +13,7 @@ from django.http import Http404
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import check_password
 from django.http import HttpResponse
+from django.utils.crypto import get_random_string
 # Create your views here.
 
 
@@ -114,13 +115,8 @@ class userlogin(APIView):
             # Passwords match, user is authenticated
             user_logData.last_login_date = datetime.datetime.now()
             user_logData.save()
-            # unique_id = get_random_string(length=32)
-            Token.objects.filter(user=user).delete()
-
-            # Generate a new token for the user
-            token = Token.objects.create(user=user)
-
-            return Response({"userid": user.id,"username":user.first_name,"token": token},status=status.HTTP_200_OK)
+            unique_id = get_random_string(length=32)
+            return Response({"userid": user.id,"username":user.first_name,"token": unique_id},status=status.HTTP_200_OK)
         else:
             # Passwords do not match
             return Response({"message": "Invalid email or password"}, status=status.HTTP_401_UNAUTHORIZED)
