@@ -98,21 +98,32 @@ class userlog(APIView):
 
 
 class userlogin(APIView):
-    def login(request):
-        if request.method == 'POST':
-            email = request.POST.get('email')
-            password = request.POST.get('password')
+    def post(self, request):
+        email = request.data.get('email')
+        password = request.data.get('password')
 
-            try:
-                user = user_account.objects.get(email=email, password=password)
-                # If the query succeeds, a matching user account was found
-                return HttpResponse('Login successful')
-            except user_account.DoesNotExist:
-                # If the query fails, there is no matching user account
-                return HttpResponse('Invalid email or password')
+        try:
+            user = user_account.objects.get(email=email)
+            user_logData = user_log.objects.last()
+        except user_account.DoesNotExist:
+            # User does not exist
+            return Response({"message": "User account doesn't exists"}, status=status.HTTP_404_NOT_FOUND)
 
-        # If the request method is not POST, return an empty response
-        return HttpResponse()
+        # Check the password
+        if user.password == password:
+            # Passwords match, user is authenticated
+            user_logData.last_login_date = datetime.datetime.now()
+            user_logData.save()
+            # unique_id = get_random_string(length=32)
+            Token.objects.filter(user=user).delete()
+
+            # Generate a new token for the user
+            token = Token.objects.create(user=user)
+
+            return Response({"userid": user.id,"username":user.first_name,"token": token},status=status.HTTP_200_OK)
+        else:
+            # Passwords do not match
+            return Response({"message": "Invalid email or password"}, status=status.HTTP_401_UNAUTHORIZED)
 
         
 class forgotpassword(APIView):
@@ -871,6 +882,54 @@ class edituserprojects(APIView):
         userObject = user_projects.objects.get(pk=request.data['id'])
         addmoreUser = self.get_object(pk)
         serializer = user_projects_serializer(addmoreUser, data=request.data)
+        if serializer.is_valid():
+            serializer.save(staff=userObject)
+            return Response(serializer.data)
+        
+    def delete(self, request, pk, format=None):
+        data = self.get_object(pk)
+        data.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class employmentdetails(APIView):
+    # Return a list of all userreg objects serialized using userregSerializer
+
+    queryset = employment.objects.all()
+    serializer_class = employment_serializer
+
+    def get(self, request, format=None):
+        user_data = employment.objects.all().order_by('-createdDate')
+        serializer = employment_serializer(user_data, many=True, context={'request': request})
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+
+        user_account_id = request.data.get('user_account_id')
+        if user_account_id:
+            userObject = user_account.objects.get(pk=user_account_id)
+        serializer = employment_serializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user_account_id=userObject)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class editemploymentdetails(APIView):
+    def get_object(self, pk):
+        try:
+            return employment.objects.get(pk=pk)
+        except employment.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        data = self.get_object(pk)
+        serializer = employment_serializer(data)
+        return Response(serializer.data)
+    
+    def put(self, request, pk, format=None):
+        userObject = employment.objects.get(pk=request.data['id'])
+        addmoreUser = self.get_object(pk)
+        serializer = employment_serializer(addmoreUser, data=request.data)
         if serializer.is_valid():
             serializer.save(staff=userObject)
             return Response(serializer.data)

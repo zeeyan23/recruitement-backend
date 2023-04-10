@@ -81,7 +81,7 @@ class UserSocialProfileAdmin(admin.ModelAdmin):
 
 class UserCertificationAdmin(admin.ModelAdmin):
     list_display = ('id','user_account_id','certification_name','certification_completion_id','certification_url',
-                'certification_validity','certification_will_expire','createdDate','modifiedDate')
+                'certification_validity_from','certification_validity_to','certification_will_expire','createdDate','modifiedDate')
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
 class UserProjectAdmin(admin.ModelAdmin):
@@ -89,6 +89,11 @@ class UserProjectAdmin(admin.ModelAdmin):
                 'project_staus','workd_from','project_details','createdDate','modifiedDate')
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
+class EmploymentAdmin(admin.ModelAdmin):
+    list_display = ('id','user_account_id','employment_type','is_current_employment','total_experince',
+                'current_company_name','current_designation','joining_date',
+                'current_salary','skills_used','job_profile','notice_period','createdDate','modifiedDate')
+    list_display_links = ('id','user_account_id') # adds links to id and name fields
 
 admin.site.register(user_type,UserTypeAdmin)
 admin.site.register(user_account, UserAccountAdmin)
@@ -109,3 +114,4 @@ admin.site.register(job_post_skill_set, JobPostSkillSet)
 admin.site.register(user_socialprofile, UserSocialProfileAdmin)
 admin.site.register(user_certification, UserCertificationAdmin)
 admin.site.register(user_projects, UserProjectAdmin)
+admin.site.register(employment, EmploymentAdmin)
