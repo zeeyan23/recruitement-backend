@@ -8,7 +8,7 @@ class UserTypeAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'user_type_name') # adds links to id and name fields
 
 class UserAccountAdmin(admin.ModelAdmin):
-    list_display = ('id','user_type_id','first_name','last_name','experience_level','resume','join_type','profile_photo','phone_number','email_address',
+    list_display = ('id','user_type_id','first_name','last_name','password','experience_level','resume','join_type','profile_photo','phone_number','email_address',
                 'createdDate','modifiedDate')
     list_display_links = ('id', 'user_type_id') # adds links to id and name fields
 

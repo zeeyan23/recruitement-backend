@@ -18,6 +18,7 @@ class user_account(models.Model):
     profile_photo=models.ImageField(max_length=200,null=True)
     phone_number=models.IntegerField()
     email_address=models.CharField(max_length=100) 
+    password=models.CharField(max_length=100)
     createdDate = models.DateTimeField(auto_now_add=True, blank=True)
     modifiedDate = models.DateTimeField(auto_now=True)
 

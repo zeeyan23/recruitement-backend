@@ -46,7 +46,7 @@ class user_account_serializer(serializers.ModelSerializer):
     class Meta:
         model=user_account
         fields=['id','user_type_id','first_name','last_name','experience_level','resume','join_type','profile_photo','phone_number','email_address',
-                'createdDate','modifiedDate']
+                'password','createdDate','modifiedDate']
         
 class user_log_serializer(serializers.ModelSerializer):
 
