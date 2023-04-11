@@ -62,6 +62,14 @@ class usersaveaccount(APIView):
 
         if serializer.is_valid():
             serializer.save(user_type_id=userObject)
+            user_id = user_account.objects.last()
+            userlogObject = user_account.objects.get(pk=user_id.id)
+            log_Data={
+                'last_login_date':datetime.datetime.now()
+            }
+            logserializer = user_log_serializer(data=log_Data)
+            if logserializer.is_valid():
+                logserializer.save(user_account_id=userlogObject)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -100,11 +108,11 @@ class userlog(APIView):
 
 class userlogin(APIView):
     def post(self, request):
-        email = request.data.get('email')
+        email = request.data.get('email_address')
         password = request.data.get('password')
 
         try:
-            user = user_account.objects.get(email=email)
+            user = user_account.objects.get(email_address=email)
             user_logData = user_log.objects.last()
         except user_account.DoesNotExist:
             # User does not exist
