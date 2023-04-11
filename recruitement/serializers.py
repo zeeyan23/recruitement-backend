@@ -106,14 +106,14 @@ class user_projects_serializer(serializers.ModelSerializer):
     class Meta:
         model=user_projects
         fields=['id','user_account_id','project_title','tag_this_project_with_your_Education','client_name',
-                'project_staus','workd_from','project_details','createdDate','modifiedDate']
+                'project_staus','worked_from_year','worked_from_month','project_details','createdDate','modifiedDate']
         
 class user_workstatus_serializer(serializers.ModelSerializer):
    
     user_account_id=serializers.ReadOnlyField(source='user_account_id.id')
     class Meta:
         model=user_workstatus
-        fields=['id','user_account_id','work_title','url','duration_from','duration_to','working_staus','description','createdDate','modifiedDate']
+        fields=['id','user_account_id','work_title','url','duration_from_year','duration_from_month','duration_to_year','duration_to_month','working_staus','description','createdDate','modifiedDate']
         
 class user_personalinfo_serializer(serializers.ModelSerializer):
     
@@ -137,7 +137,7 @@ class employment_serializer(serializers.ModelSerializer):
     user_account_id=serializers.ReadOnlyField(source='user_account_id.id')
     class Meta:
         model=employment
-        fields=['id','user_account_id','employment_type','is_current_employment','total_experince',
+        fields=['id','user_account_id','employment_type','is_current_employment','total_experince_year','total_experince_month','joining_date_month','joining_date_year',
                 'current_company_name','current_designation','joining_date',
                 'current_salary','skills_used','job_profile','notice_period','createdDate','modifiedDate']
 
@@ -145,7 +145,7 @@ class user_skills_serializer(serializers.ModelSerializer):
     user_account_id=serializers.ReadOnlyField(source='user_account_id.id')
     class Meta:
         model=user_skills
-        fields=['id','user_account_id','skill_name','software_version','last_used','experience','createdDate','modifiedDate']
+        fields=['id','user_account_id','skill_name','software_version','last_used','experience_year','experience_month','createdDate','modifiedDate']
 
 #Job Post Management
 class job_post_activity_serializer(serializers.ModelSerializer):

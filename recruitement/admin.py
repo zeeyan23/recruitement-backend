@@ -36,7 +36,7 @@ class UserEducationAdmin(admin.ModelAdmin):
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
 class UserWorkStatusAdmin(admin.ModelAdmin):
-    list_display = ('id','user_account_id','work_title','url','duration_from','duration_to','working_staus','description','createdDate','modifiedDate')
+    list_display = ('id','user_account_id','work_title','url','duration_from_year','duration_from_month','duration_to_year','duration_to_month','working_staus','description','createdDate','modifiedDate')
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
 class UserPersonelInfoAdmin(admin.ModelAdmin):
@@ -50,7 +50,7 @@ class SeekerSkillSetAdmin(admin.ModelAdmin):
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
 class UserSkillsAdmin(admin.ModelAdmin):
-    list_display = ('id','user_account_id','skill_name','software_version','last_used','experience','createdDate','modifiedDate')
+    list_display = ('id','user_account_id','skill_name','software_version','last_used','experience_month','experience_year','createdDate','modifiedDate')
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
 class JobPostAdmin(admin.ModelAdmin):
@@ -86,12 +86,12 @@ class UserCertificationAdmin(admin.ModelAdmin):
 
 class UserProjectAdmin(admin.ModelAdmin):
     list_display = ('id','user_account_id','project_title','tag_this_project_with_your_Education','client_name',
-                'project_staus','workd_from','project_details','createdDate','modifiedDate')
+                'project_staus','worked_from_year','worked_from_month','project_details','createdDate','modifiedDate')
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
 class EmploymentAdmin(admin.ModelAdmin):
-    list_display = ('id','user_account_id','employment_type','is_current_employment','total_experince',
-                'current_company_name','current_designation','joining_date',
+    list_display = ('id','user_account_id','employment_type','is_current_employment','total_experince_year','total_experince_month',
+                'current_company_name','current_designation','joining_date_month','joining_date_year',
                 'current_salary','skills_used','job_profile','notice_period','createdDate','modifiedDate')
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
