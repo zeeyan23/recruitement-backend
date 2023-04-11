@@ -111,7 +111,7 @@ class user_skills(models.Model):
     user_account_id = models.ForeignKey('user_account',related_name='user_account_id_user_skills', on_delete=models.CASCADE,default=None)
     skill_name=models.CharField(max_length=50)
     software_version=models.IntegerField()
-    last_used=models.DateField()
+    last_used=models.IntegerField()
     experience_month=models.IntegerField()
     experience_year=models.IntegerField()
     createdDate = models.DateTimeField(auto_now_add=True, blank=True)
