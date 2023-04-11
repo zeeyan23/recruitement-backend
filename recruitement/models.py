@@ -213,3 +213,34 @@ class employment(models.Model):
     notice_period=models.CharField(max_length=100)
     createdDate = models.DateTimeField(auto_now_add=True, blank=True)
     modifiedDate = models.DateTimeField(auto_now=True)
+
+class researchpublication(models.Model):
+    user_account_id = models.ForeignKey('user_account',related_name='user_account_id_researchpublication', on_delete=models.CASCADE,default=None)
+    title=models.CharField(max_length=50)
+    url=models.CharField(max_length=70)
+    published_on_month = models.IntegerField()
+    published_on_year = models.IntegerField()
+    description=models.CharField(max_length=400)
+    createdDate = models.DateTimeField(auto_now_add=True, blank=True)
+    modifiedDate = models.DateTimeField(auto_now=True)
+
+class presentation(models.Model):
+    user_account_id = models.ForeignKey('user_account',related_name='user_account_id_presentation', on_delete=models.CASCADE,default=None)
+    presentation_title=models.CharField(max_length=50)
+    url=models.CharField(max_length=70)
+    description=models.CharField(max_length=400)
+    createdDate = models.DateTimeField(auto_now_add=True, blank=True)
+    modifiedDate = models.DateTimeField(auto_now=True)
+
+class patent(models.Model):
+    user_account_id = models.ForeignKey('user_account',related_name='user_account_id_patent', on_delete=models.CASCADE,default=None)
+    title=models.CharField(max_length=50)
+    url=models.CharField(max_length=70)
+    patent_office=models.CharField(max_length=20)
+    status=models.CharField(max_length=20)
+    application_number=models.IntegerField()
+    issue_date_month=models.IntegerField()
+    issue_date_year=models.IntegerField()
+    description=models.CharField(max_length=400)
+    createdDate = models.DateTimeField(auto_now_add=True, blank=True)
+    modifiedDate = models.DateTimeField(auto_now=True)

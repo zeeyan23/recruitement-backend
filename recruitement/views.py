@@ -942,3 +942,147 @@ class editemploymentdetails(APIView):
         data = self.get_object(pk)
         data.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class publications(APIView):
+    # Return a list of all userreg objects serialized using userregSerializer
+
+    queryset = researchpublication.objects.all()
+    serializer_class = researchpublication_serializer
+
+    def get(self, request, format=None):
+        user_data = researchpublication.objects.all().order_by('-createdDate')
+        serializer = researchpublication_serializer(user_data, many=True, context={'request': request})
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+
+        user_account_id = request.data.get('user_account_id')
+        if user_account_id:
+            userObject = user_account.objects.get(pk=user_account_id)
+        serializer = researchpublication_serializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user_account_id=userObject)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class editpublications(APIView):
+    def get_object(self, pk):
+        try:
+            return researchpublication.objects.get(pk=pk)
+        except researchpublication.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        data = self.get_object(pk)
+        serializer = researchpublication_serializer(data)
+        return Response(serializer.data)
+    
+    def put(self, request, pk, format=None):
+        userObject = researchpublication.objects.get(pk=request.data['id'])
+        addmoreUser = self.get_object(pk)
+        serializer = researchpublication_serializer(addmoreUser, data=request.data)
+        if serializer.is_valid():
+            serializer.save(staff=userObject)
+            return Response(serializer.data)
+        
+    def delete(self, request, pk, format=None):
+        data = self.get_object(pk)
+        data.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class presentation(APIView):
+    # Return a list of all userreg objects serialized using userregSerializer
+
+    queryset = presentation.objects.all()
+    serializer_class = presentation_serializer
+
+    def get(self, request, format=None):
+        user_data = presentation.objects.all().order_by('-createdDate')
+        serializer = presentation_serializer(user_data, many=True, context={'request': request})
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+
+        user_account_id = request.data.get('user_account_id')
+        if user_account_id:
+            userObject = user_account.objects.get(pk=user_account_id)
+        serializer = presentation_serializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user_account_id=userObject)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class editpresentation(APIView):
+    def get_object(self, pk):
+        try:
+            return presentation.objects.get(pk=pk)
+        except presentation.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        data = self.get_object(pk)
+        serializer = presentation_serializer(data)
+        return Response(serializer.data)
+    
+    def put(self, request, pk, format=None):
+        userObject = presentation.objects.get(pk=request.data['id'])
+        addmoreUser = self.get_object(pk)
+        serializer = presentation_serializer(addmoreUser, data=request.data)
+        if serializer.is_valid():
+            serializer.save(staff=userObject)
+            return Response(serializer.data)
+        
+    def delete(self, request, pk, format=None):
+        data = self.get_object(pk)
+        data.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class patent(APIView):
+    # Return a list of all userreg objects serialized using userregSerializer
+
+    queryset = patent.objects.all()
+    serializer_class = patent_serializer
+
+    def get(self, request, format=None):
+        user_data = patent.objects.all().order_by('-createdDate')
+        serializer = patent_serializer(user_data, many=True, context={'request': request})
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+
+        user_account_id = request.data.get('user_account_id')
+        if user_account_id:
+            userObject = user_account.objects.get(pk=user_account_id)
+        serializer = patent_serializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user_account_id=userObject)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class editpatent(APIView):
+    def get_object(self, pk):
+        try:
+            return patent.objects.get(pk=pk)
+        except patent.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        data = self.get_object(pk)
+        serializer = patent_serializer(data)
+        return Response(serializer.data)
+    
+    def put(self, request, pk, format=None):
+        userObject = patent.objects.get(pk=request.data['id'])
+        addmoreUser = self.get_object(pk)
+        serializer = patent_serializer(addmoreUser, data=request.data)
+        if serializer.is_valid():
+            serializer.save(staff=userObject)
+            return Response(serializer.data)
+        
+    def delete(self, request, pk, format=None):
+        data = self.get_object(pk)
+        data.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

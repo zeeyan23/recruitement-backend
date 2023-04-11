@@ -140,6 +140,28 @@ class employment_serializer(serializers.ModelSerializer):
         fields=['id','user_account_id','employment_type','is_current_employment','total_experince_year','total_experince_month','joining_date_month','joining_date_year',
                 'current_company_name','current_designation','joining_date',
                 'current_salary','skills_used','job_profile','notice_period','createdDate','modifiedDate']
+        
+class researchpublication_serializer(serializers.ModelSerializer):
+    
+    user_account_id=serializers.ReadOnlyField(source='user_account_id.id')
+    class Meta:
+        model=researchpublication
+        fields=['id','user_account_id','title','url','published_on_month','published_on_year','createdDate','modifiedDate']
+
+class presentation_serializer(serializers.ModelSerializer):
+    
+    user_account_id=serializers.ReadOnlyField(source='user_account_id.id')
+    class Meta:
+        model=presentation
+        fields=['id','user_account_id','presentation_title','url','description','createdDate','modifiedDate']
+
+class patent_serializer(serializers.ModelSerializer):
+    
+    user_account_id=serializers.ReadOnlyField(source='user_account_id.id')
+    class Meta:
+        model=patent
+        fields=['id','user_account_id','title','url','patent_office','status','application_number','issue_date_month','issue_date_year'
+                    ,'description','createdDate','modifiedDate']
 
 class user_skills_serializer(serializers.ModelSerializer):
     user_account_id=serializers.ReadOnlyField(source='user_account_id.id')

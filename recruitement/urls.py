@@ -70,4 +70,13 @@ urlpatterns = [
 
     path('employmentdetails',views.employmentdetails.as_view()),
     path('employmentdetails/<int:pk>/',views.editemploymentdetails.as_view()),
+
+    path('publications',views.publications.as_view()),
+    path('publications/<int:pk>/',views.editpublications.as_view()),
+
+    path('presentation',views.presentation.as_view()),
+    path('presentation/<int:pk>/',views.editpresentation.as_view()),
+
+    path('patent',views.patent.as_view()),
+    path('patent/<int:pk>/',views.editpatent.as_view()),
 ]

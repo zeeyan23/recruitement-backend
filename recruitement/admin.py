@@ -95,6 +95,19 @@ class EmploymentAdmin(admin.ModelAdmin):
                 'current_salary','skills_used','job_profile','notice_period','createdDate','modifiedDate')
     list_display_links = ('id','user_account_id') # adds links to id and name fields
 
+class ResearchAdmin(admin.ModelAdmin):
+    list_display = ('id','user_account_id','title','url','published_on_month','published_on_year','createdDate','modifiedDate')
+    list_display_links = ('id','user_account_id') # adds links to id and name fields
+
+class PresentationAdmin(admin.ModelAdmin):
+    list_display = ('id','user_account_id','presentation_title','url','description','createdDate','modifiedDate')
+    list_display_links = ('id','user_account_id') # adds links to id and name fields
+
+class PatentAdmin(admin.ModelAdmin):
+    list_display = ('id','user_account_id','title','url','patent_office','status','application_number','issue_date_month','issue_date_year'
+                    ,'description','createdDate','modifiedDate')
+    list_display_links = ('id','user_account_id') # adds links to id and name fields
+
 admin.site.register(user_type,UserTypeAdmin)
 admin.site.register(user_account, UserAccountAdmin)
 admin.site.register(user_log, UserLogAdmin)
@@ -115,3 +128,6 @@ admin.site.register(user_socialprofile, UserSocialProfileAdmin)
 admin.site.register(user_certification, UserCertificationAdmin)
 admin.site.register(user_projects, UserProjectAdmin)
 admin.site.register(employment, EmploymentAdmin)
+admin.site.register(researchpublication, ResearchAdmin)
+admin.site.register(presentation, PresentationAdmin)
+admin.site.register(patent, PatentAdmin)
