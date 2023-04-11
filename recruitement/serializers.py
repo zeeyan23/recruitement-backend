@@ -98,7 +98,8 @@ class user_certification_serializer(serializers.ModelSerializer):
     class Meta:
         model=user_certification
         fields=['id','user_account_id','certification_name','certification_completion_id','certification_url',
-                'certification_validity_from','certification_validity_to','certification_will_expire','createdDate','modifiedDate']
+                'certification_validity_from_year','certification_validity_from_month','certification_validity_to_year','certification_validity_to_month'
+                'certification_will_expire','createdDate','modifiedDate']
         
 class user_projects_serializer(serializers.ModelSerializer):
    
